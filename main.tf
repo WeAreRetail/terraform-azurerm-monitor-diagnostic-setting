@@ -6,25 +6,17 @@ locals {
     data.azurerm_monitor_diagnostic_categories.main.log_category_types
   )
 
-  metric_categories = (
-    var.metric_categories != null ?
-    var.metric_categories :
-    data.azurerm_monitor_diagnostic_categories.main.metrics
-  )
-
-  logs = {
-    for category in local.log_categories : category => {
-      retention_days = var.retention_days
-    }
+  # Each metric can be defined with a status enabled or not.
+  # If the user provides metrics, only those provided are enabled. Other are defined disabled.
+  # If the user doesn't provide any metrics, all metrics are activated.
+  metric_categories = {
+    for metric in data.azurerm_monitor_diagnostic_categories.main.metrics :
+      metric => var.metric_categories != null ? contains(var.metric_categories, metric) : true
   }
 
-  metrics = {
-    for metric in local.metric_categories : metric => {
-      enabled        = var.enable_metrics
-      retention_days = var.retention_days
-    }
-  }
-
+  # The user can disable logs and metrics.
+  logs    = var.enable_logs ? local.log_categories : []
+  metrics = var.enable_metrics ? local.metric_categories : {for metric, _ in local.metric_categories: metric => false}
 }
 
 data "azurerm_monitor_diagnostic_categories" "main" {
@@ -56,12 +48,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
     for_each = local.logs
 
     content {
-      category = enabled_log.key
-
-      retention_policy {
-        enabled = enabled_log.value.retention_days != null ? true : false
-        days    = enabled_log.value.retention_days
-      }
+      category = enabled_log.value
     }
   }
 
@@ -70,12 +57,7 @@ resource "azurerm_monitor_diagnostic_setting" "main" {
 
     content {
       category = metric.key
-      enabled  = metric.value.enabled
-
-      retention_policy {
-        enabled = metric.value.retention_days != null ? true : false
-        days    = metric.value.retention_days
-      }
+      enabled  = metric.value
     }
   }
 }

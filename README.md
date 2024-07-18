@@ -51,12 +51,12 @@ module "diagnostic_settings" {
 | <a name="input_resource_id"></a> [resource\_id](#input\_resource\_id) | The ID of the resource. | `string` | n/a | yes |
 | <a name="input_caf_prefixes"></a> [caf\_prefixes](#input\_caf\_prefixes) | Prefixes to use for caf naming. | `list(string)` | `[]` | no |
 | <a name="input_description"></a> [description](#input\_description) | Monitoring diagnostic settings | `string` | `""` | no |
-| <a name="input_enable_metrics"></a> [enable\_metrics](#input\_enable\_metrics) | Either `true` to enable diagnostic settings or `false` to disable it. | `bool` | `true` | no |
+| <a name="input_enable_logs"></a> [enable\_logs](#input\_enable\_logs) | Either `true` to enable diagnostic settings logs or `false` to disable it. | `bool` | `true` | no |
+| <a name="input_enable_metrics"></a> [enable\_metrics](#input\_enable\_metrics) | Either `true` to enable diagnostic settings metrics or `false` to disable it. | `bool` | `true` | no |
 | <a name="input_log_analytics_destination_type"></a> [log\_analytics\_destination\_type](#input\_log\_analytics\_destination\_type) | When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table. | `string` | `"AzureDiagnostics"` | no |
 | <a name="input_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#input\_log\_analytics\_workspace\_id) | The ID of the Log Analytics workspace to send diagnostic logs to. | `string` | `null` | no |
 | <a name="input_log_categories"></a> [log\_categories](#input\_log\_categories) | List of log categories. | `list(any)` | `null` | no |
-| <a name="input_metric_categories"></a> [metric\_categories](#input\_metric\_categories) | List of metric categories. | `list(any)` | `null` | no |
-| <a name="input_retention_days"></a> [retention\_days](#input\_retention\_days) | The number of days to keep diagnostic logs. | `number` | `null` | no |
+| <a name="input_metric_categories"></a> [metric\_categories](#input\_metric\_categories) | List of metric categories to enable. If not provided, all metrics will be enabled. | `list(any)` | `null` | no |
 | <a name="input_storage_account_id"></a> [storage\_account\_id](#input\_storage\_account\_id) | The ID of the storage account to send diagnostic logs to. | `string` | `null` | no |
 
 #### Outputs

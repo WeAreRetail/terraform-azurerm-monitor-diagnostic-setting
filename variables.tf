@@ -24,19 +24,19 @@ variable "log_categories" {
 variable "metric_categories" {
   type        = list(any)
   default     = null
-  description = "List of metric categories."
+  description = "List of metric categories to enable. If not provided, all metrics will be enabled."
+}
+
+variable "enable_logs" {
+  type        = bool
+  default     = true
+  description = "Either `true` to enable diagnostic settings logs or `false` to disable it."
 }
 
 variable "enable_metrics" {
   type        = bool
   default     = true
-  description = "Either `true` to enable diagnostic settings or `false` to disable it."
-}
-
-variable "retention_days" {
-  type        = number
-  default     = null
-  description = "The number of days to keep diagnostic logs."
+  description = "Either `true` to enable diagnostic settings metrics or `false` to disable it."
 }
 
 variable "storage_account_id" {
