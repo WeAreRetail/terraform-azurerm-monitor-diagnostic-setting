@@ -42,7 +42,7 @@ module "diagnostic_settings" {
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
 | <a name="requirement_azurecaf"></a> [azurecaf](#requirement\_azurecaf) | >= 1.2.16 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.44.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >=4.0.0 |
 
 #### Inputs
 
