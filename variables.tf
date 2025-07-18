@@ -55,9 +55,10 @@ variable "log_analytics_destination_type" {
   type        = string
   default     = "AzureDiagnostics"
   description = "When set to 'Dedicated' logs sent to a Log Analytics workspace will go into resource specific tables, instead of the legacy AzureDiagnostics table."
+  nullable = true
 
   validation {
-    condition     = contains(["AzureDiagnostics", "Dedicated"], var.log_analytics_destination_type)
+    condition     = contains(["not_provided", "AzureDiagnostics", "Dedicated"], coalesce(var.log_analytics_destination_type, "not_provided"))
     error_message = "log_analytics_destination_type must be either 'AzureDiagnostics' or 'Dedicated'."
   }
 }
